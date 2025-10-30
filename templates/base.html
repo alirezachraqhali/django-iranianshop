@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>فروشگاه ایرانیان - {% block title %}بدون عنوان{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+    <style type="text/css">
+        .set_style_link {
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="divTable">
+        <div class="divTableRow"> 
+            <div class="divTableCell">
+                <header class="divTable">
+                    <div class="divTableRow">
+                        <div class="divTableCell">لوگوی سایت</div>
+                    </div>
+                </header>
+                <nav class="divTable">
+                    <ul class="divTableRow">
+                        <li class="divTableCell"><a class="set_style_link" href="{% url 'home' %}">صفحه اصلی</a></li>
+                        <li class="divTableCell"><a class="set_style_link" href="#">درباره ما</a></li>
+                        <li class="divTableCell"><a class="set_style_link" href="#">ارتباط با ما</a></li>
+                        {% if user.is_authenticated %}
+                        {% if user.is_superuser %}
+                        <li class="divTableCell"><a class="set_style_link" href="{% url 'admin' %}">مدیریت اطلاعات</a></li>
+                        {% else %}
+                        <li class="divTableCell"><a class="set_style_link" href="#">{{ user.first_name }} {{ user.last_name }}</a></li>
+                        {% endif %}
+                        <li class="divTableCell"><a class="set_style_link" href="{% url 'logout' %}">خروج از سایت</a></li>
+                        {% else %}
+                        <li class="divTableCell"><a class="set_style_link" href="{% url 'register' %}">عضویت در سایت</a></li>
+                        <li class="divTableCell"><a class="set_style_link" href="{% url 'login' %}">ورود به سایت</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                <section class="divTable">
+                    <section class="divTableRow">
+                        <aside class="divTableCell" style="width: 25%;">بخش امکانات سایت</aside>
+                        <section class="divTableCell" style="width: 75%;">
+                            {% block content %}محتوای سایت{% endblock content %}
+                        </section>
+                    </section>
+                </section>
+                <footer class="divTable">
+                    <section class="divTableRow">
+                        <article class="divTableCell">مالکیت مادی و معنوی سایت</article>
+                    </section>
+                </footer>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

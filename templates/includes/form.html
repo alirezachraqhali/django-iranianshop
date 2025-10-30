@@ -1,0 +1,17 @@
+{% if form and method and submit %}
+<form action="{{ action }}" method="{{ method }}">
+    {% csrf_token %}
+    <table border="0" style="width: 50%; margin-left: auto; margin-right: auto;">
+        {% for field in form %}
+        <tr>
+            <td style="width: 40%;">{{ field.label }}: {% if field.field.required %}<span style="color: red;">*</span>{% endif %}</td>
+            <td style="width: 60%;">{{ field }}<br />{% if field.errors %}<span style="color: red;">{{field.errors}}</span>{% endif %}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td></td>
+            <td><button type="submit">{{ submit }}</button></td>
+        </tr>
+    </table>
+</form>
+{% endif %}
