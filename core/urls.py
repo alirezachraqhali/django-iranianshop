@@ -15,8 +15,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, reverse_lazy
-from . import views, include
+from django.urls import path, reverse_lazy, include
+from . import views
 from django.views.generic.base import RedirectView
 from .settings import DEBUG, STATIC_URL, STATIC_ROOT, MEDIA_URL, MEDIA_ROOT
 from django.conf.urls.static import static
@@ -30,7 +30,7 @@ urlpatterns = [
     path('accounts/logout/', views.logout_page, name='logout'),
 
     path('', views.home, name='home'),
-    path('', include('shop/urls')),
+    path('', include('shop.urls')),
 ]
 if DEBUG is True :
     urlpatterns += static(STATIC_URL, document_root=STATIC_ROOT)
